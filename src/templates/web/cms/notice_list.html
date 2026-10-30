@@ -1,0 +1,17 @@
+{% extends "web/base.html" %}
+{% block title %}공지사항{% endblock %}
+{% block content %}
+<h1>공지사항</h1>
+<form class="search" method="get">
+    <input type="text" name="q" value="{{ query }}" placeholder="제목으로 검색">
+    <button type="submit" class="btn secondary">검색</button>
+</form>
+{% for notice in notices %}
+    <article class="card">
+        <h2><a href="{% url 'web-cms-notice-detail' notice.uuid %}">{{ notice.title }}</a></h2>
+        <p class="muted">{{ notice.published_at|date:"Y.m.d H:i" }}</p>
+    </article>
+{% empty %}
+    <div class="card"><p class="muted">등록된 공지사항이 없습니다.</p></div>
+{% endfor %}
+{% endblock %}

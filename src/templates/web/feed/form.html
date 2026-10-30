@@ -1,0 +1,30 @@
+{% extends "web/base.html" %}
+{% block title %}피드 작성{% endblock %}
+{% block content %}
+<div class="card">
+    <h1>피드 작성</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-row">
+            <label for="title">제목</label>
+            <input type="text" id="title" name="title" maxlength="255" required>
+        </div>
+        <div class="form-row">
+            <label for="content">내용</label>
+            <textarea id="content" name="content" required></textarea>
+        </div>
+        <div class="form-row">
+            <label for="image">이미지 URL (선택)</label>
+            <input type="url" id="image" name="image">
+        </div>
+        <div class="form-row">
+            <label for="tags">태그 (선택, 쉼표로 구분)</label>
+            <input type="text" id="tags" name="tags" placeholder="예: 일상, 여행">
+        </div>
+        <div class="actions">
+            <button type="submit" class="btn">등록하기</button>
+            <a href="{% url 'web-feed-list' %}">취소</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

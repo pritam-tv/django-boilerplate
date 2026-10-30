@@ -1,0 +1,12 @@
+{% extends "web/base.html" %}
+{% block title %}이메일 인증 실패{% endblock %}
+{% block content %}
+<div class="card">
+    <h1>이메일 인증 실패</h1>
+    <p>인증 링크가 만료되었거나 올바르지 않습니다. 다시 회원 가입을 진행해주세요.</p>
+    <div class="actions">
+        <a class="btn" href="{% url 'web-account-register' %}">회원 가입</a>
+        <a href="{% url 'web-account-login' %}">로그인</a>
+    </div>
+</div>
+{% endblock %}

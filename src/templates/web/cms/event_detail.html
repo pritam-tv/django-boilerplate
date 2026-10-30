@@ -1,0 +1,16 @@
+{% extends "web/base.html" %}
+{% block title %}{{ event.title }}{% endblock %}
+{% block content %}
+<article class="card">
+    <h1>{{ event.title }}</h1>
+    <p class="muted">
+        이벤트 기간: {{ event.event_start_at|date:"Y.m.d H:i" }}
+        {% if event.event_end_at %} ~ {{ event.event_end_at|date:"Y.m.d H:i" }}{% endif %}
+        {% if is_event_ended %} · 종료된 이벤트{% endif %}
+    </p>
+    <div style="white-space: pre-wrap; margin-top: 18px;">{{ event.content }}</div>
+    <div class="actions">
+        <a href="{% url 'web-cms-event-list' %}">목록으로</a>
+    </div>
+</article>
+{% endblock %}

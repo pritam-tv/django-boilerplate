@@ -1,0 +1,22 @@
+{% extends "web/base.html" %}
+{% block title %}약관{% endblock %}
+{% block content %}
+<h1>약관</h1>
+{% for agreement in agreements %}
+    <article class="card">
+        <h2>
+            {{ agreement.title }}
+            {% if agreement.is_required %}<span class="tag">필수</span>{% else %}<span class="tag">선택</span>{% endif %}
+        </h2>
+        <p class="muted">버전 {{ agreement.version }}</p>
+        <div class="agreement-content">{{ agreement.content }}</div>
+    </article>
+{% empty %}
+    <div class="card"><p class="muted">등록된 약관이 없습니다.</p></div>
+{% endfor %}
+{% if request.user.is_authenticated %}
+    <div class="actions">
+        <a class="btn" href="{% url 'web-my-agreements' %}">내 약관 동의 관리</a>
+    </div>
+{% endif %}
+{% endblock %}
