@@ -1,7 +1,7 @@
 from debug_toolbar.toolbar import debug_toolbar_urls
 from django.conf import settings
 from django.contrib import admin
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.urls import path, include
 from drf_spectacular.views import (
     SpectacularJSONAPIView,
@@ -10,6 +10,17 @@ from drf_spectacular.views import (
 )
 
 from base.enums.base import DjangoEnvironment
+
+
+def health_check(request):
+    """서비스 상태 확인 엔드포인트"""
+    return JsonResponse({"status": "ok"})
+
+
+def version_check(request):
+    """서비스 버전 확인 엔드포인트"""
+    return JsonResponse({"version": "1.0.0"})
+
 
 urlpatterns = [
     path("v1/", include("apps.account.v1.urls")),
@@ -21,6 +32,8 @@ urlpatterns = [
     path("v1/", include("apps.agreement.v1.urls")),
     path("v1/", include("apps.cms.v1.urls")),
     path("v1/", include("apps.game.v1.urls")),
+    path("api/health/", health_check, name="api-health"),
+    path("api/version/", version_check, name="api-version"),
     path("_health/", lambda request: HttpResponse()),
 ]
 
