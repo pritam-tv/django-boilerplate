@@ -17,6 +17,11 @@ def health_check(request):
     return JsonResponse({"status": "ok"})
 
 
+def version_check(request):
+    """서비스 버전 확인 엔드포인트"""
+    return JsonResponse({"version": "1.0.0"})
+
+
 urlpatterns = [
     path("v1/", include("apps.account.v1.urls")),
     path("v1/", include("apps.user.v1.urls")),
@@ -28,6 +33,7 @@ urlpatterns = [
     path("v1/", include("apps.cms.v1.urls")),
     path("v1/", include("apps.game.v1.urls")),
     path("api/health/", health_check, name="api-health"),
+    path("api/version/", version_check, name="api-version"),
     path("_health/", lambda request: HttpResponse()),
 ]
 
